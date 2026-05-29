@@ -1,0 +1,46 @@
+#!/bin/bash
+
+cmd::run-worker() {
+	go run worker.go
+}
+
+cmd::run-workflow() {
+	go run start.go "$2"
+}
+
+cmd::deps() {
+	go get go.temporal.io/sdk
+}
+
+cmd::tidy() {
+	go mod tidy -v
+}
+
+cmd::help() {
+    echo ":: One ::"
+    echo "./do {Command} {Options}"
+    echo "Commands:"
+    echo "run-worker    Run the worker"
+    echo "run-workflow  Run the workflow. Options: a string"
+    echo "deps          Install dependencies"
+    echo "build         Install dependencies"
+}
+
+set +x
+cmd=$1
+
+# If no command given run the help
+if [ "$cmd" = "" ]; then
+    cmd::help
+    exit 1
+fi
+
+if declare -F "cmd::$cmd"; then
+    { set +x; } 2> /dev/null
+    eval "cmd::$cmd $@"
+    { set -x; } 2> /dev/null
+else
+    echo "No such command: $cmd"
+    exit 1
+fi
+
