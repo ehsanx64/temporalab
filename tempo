@@ -1,19 +1,23 @@
 #!/bin/bash
 
-cmd::temporal-start() {
+cmd::start() {
 	temporal server start-dev
 }
 
-cmd::temporal-start-wui-8080() {
+cmd::start-ui8080() {
 	temporal server start-dev --ui-port 8080
 }
 
-cmd::temporal-start-docker() {
+cmd::start-docker() {
 	# UI would be accessible from host at http://localhost:8233/
 	docker run --rm -p 7233:7233 -p 8233:8233 temporalio/temporal server start-dev --ip 0.0.0.0
 }
 
-cmd::temporal-mac-install() {
+cmd::start-temporalab() {
+	docker run --name temporalab -p 7233:7233 -p 8233:8233 temporalio/temporal server start-dev --ip 0.0.0.0
+}
+
+cmd::install:mac() {
 	brew install temporal
 }
 
