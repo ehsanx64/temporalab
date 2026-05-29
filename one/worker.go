@@ -22,6 +22,8 @@ func main() {
 	w := worker.New(c, greeting.TaskQueueName, worker.Options{})
 	w.RegisterWorkflow(greeting.SayHelloWorkflow)
 	w.RegisterActivity(greeting.Greet)
+	w.RegisterActivity(greeting.Log)
+	w.RegisterActivity(greeting.Dummy)
 
 	err = w.Run(worker.InterruptCh())
 	if err != nil {
