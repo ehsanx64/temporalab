@@ -3,6 +3,6 @@ package greeting
 
 const (
 	TaskQueueName string = "temporalab/one:worker"
-	GreetingWorkflowID string = "temporalab/one:greeting-workflow"
+	OneStarterID = "temporalab/one:start"
 )
 

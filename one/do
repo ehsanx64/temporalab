@@ -10,6 +10,7 @@ cmd::run-workflow() {
 
 cmd::deps() {
 	go get go.temporal.io/sdk
+    go get github.com/google/uuid
 }
 
 cmd::tidy() {

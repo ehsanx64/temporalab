@@ -3,9 +3,11 @@ package main
 import (
 	"context"
 	"log"
+	"fmt"
 	"os"
 
 	"go.temporal.io/sdk/client"
+	"github.com/google/uuid"
 
 	"temporalab/one/greeting"
 )
@@ -18,7 +20,7 @@ func main() {
 	defer c.Close()
 
 	options := client.StartWorkflowOptions{
-		ID: greeting.GreetingWorkflowID,
+		ID: fmt.Sprintf("%s::%s", greeting.OneStarterID, uuid.New().String()),
 		TaskQueue: greeting.TaskQueueName,
 	}
 
