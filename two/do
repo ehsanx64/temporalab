@@ -1,0 +1,31 @@
+#!/bin/bash
+
+cmd::run() {
+    python start.py
+}
+
+cmd::help() {
+    echo ":: Two ::"
+    echo "./do {Command} {Options}"
+    echo "Commands:"
+    echo "run           Run the workflow"
+}
+
+set +x
+cmd=$1
+
+# If no command given run the help
+if [ "$cmd" = "" ]; then
+    cmd::help
+    exit 1
+fi
+
+if declare -F "cmd::$cmd"; then
+    #{ set +x; } 2> /dev/null
+    eval "cmd::$cmd $@"
+    #{ set -x; } 2> /dev/null
+else
+    echo "No such command: $cmd"
+    exit 1
+fi
+
